@@ -30,3 +30,5 @@ class Estado:
             tabuleiro.append(i)
         tabuleiro.append(0)
         return tabuleiro
+
+   

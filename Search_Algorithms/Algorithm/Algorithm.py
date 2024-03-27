@@ -4,7 +4,7 @@ from Problem.Jogo8.Acao import Acao
 from Problem.Jogo8.Estado import Estado
 from Problem.Jogo8.Jogo8 import Jogo8
 from Tree.Arvore import Arvore
-
+from Algorithm.PriorityQueue import PriorityQueue
 
 class Algorithm:
     def __init__(self, nome: str, arvore_busca: Arvore, objetivo: Estado):
@@ -28,7 +28,7 @@ class Algorithm:
                 novo_estado = Jogo8.transicao(arvore.estado, acao)
                 # Testa se a ação foi válida
                 if novo_estado != arvore.estado:
-                    estados_expandidos.append(arvore.adicionar_filho(novo_estado, acao))
+                    estados_expandidos.append(arvore.adicionar_filho(novo_estado, acao, PriorityQueue))
         return estados_expandidos
 
     def eh_objetivo(self, estado_atual: Estado) -> bool:

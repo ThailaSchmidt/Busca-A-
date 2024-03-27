@@ -9,45 +9,28 @@ import time
 from Algorithm.Algorithm import Algorithm
 from Problem.Jogo8.Estado import Estado
 from Tree.Arvore import Arvore
+from Algorithm.PriorityQueue import PriorityQueue #lista de prioridade para descobrir nó de menor custo
 
 class buscaA (Algorithm):
     def __init__(self, estado_inicial: Estado, objetivo: Estado):
-        super().__init__("Busca A*", Arvore(estado_inicial), objetivo)
-
-
-
-    def custo(self, nivel):
-        while True:
-            if ('fora do lugar'):
-                h =+ 1
-            else:
-                break
-        g = nivel
-        novo_valor = h + g
-        self.valor = novo_valor
-        for filho in self.filhos:
-            filho.custo(novo_valor)
+        super().__init__("Busca A*", Arvore(estado_inicial, 0), objetivo)
 
     def busca_A(self):
         inicio = time.time()
-        analisar = [self.arvore_busca]
-
+        analisar = PriorityQueue()
+        analisar.inserir((self.arvore_busca.custo, self.arvore_busca)) 
+        
         while True:
             # Se lista está vazia, instância não possui solução
             if not analisar:
                 break
-            # Expande quando g+h for o menor
-            # h -> n de peças fora do lugar
-            # g -> custo acumulado
-            arvore = min(analisar, key=lambda x: x.custo())
+            # Expande quando o custo for o menor
+            _, arvore = analisar.remover_min()  # Obtém o nó com menor custo
             self.estados_analisados += 1
-            
-
-
             # Verifica se estado analisado é objetivo
             if not self.eh_objetivo(arvore.estado):
-                analisar.extend(self.expandir(arvore))
-                analisar.custo(self, nivel)
+                for filho in self.expandir(arvore): # Calcula o custo do filho
+                    analisar.inserir((filho.custo, filho)) # Adiciona o filho à fila de prioridades com seu custo
             else:
                 self.solucao = arvore.retornar_acoes()
                 break
