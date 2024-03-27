@@ -1,6 +1,6 @@
 # Trabalho de Inteligência Artificial
 
-Implementação a busca A* para o jogo de 8/15/24 peças.
+Implementação da busca A* para o jogo de 8/15/24 peças.
 
 Usando como base o código Python disponibilizado para a BFS.
 
